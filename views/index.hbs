@@ -1,0 +1,92 @@
+<div class="container">
+{{!-- 	<ul class="header">
+		<li id="icon-and-plug">
+			<ul class="plug pull-left">
+				<li><a><img src="./imgs/brown.png" alt=""/></a></li>
+				<li><h3>Brown University</h3></li>
+			</ul>
+		</li>
+		<li id="info-btn">
+			<!-- Button trigger modal -->
+			<button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal">Instructions</button>
+		<li>
+		</ul> --}}
+
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header johnny-nav">
+					<a class="navbar-brand" href="#">
+						{{!-- <img alt="Brand" src="..."> --}}
+						Brown University
+					</a>
+				</div>
+				<div class="pull-right johnny-nav">
+					<button type="button" class="btn btn-primary navbar-btn" data-toggle="modal" data-target="#myModal">Instructions</button>
+				</div>
+			</div>
+		</nav>
+
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h4 class="modal-title" id="myModalLabel">Instructions</h4>
+					</div>
+					<div class="modal-body">
+						In this experiment, blah blah blah...
+						Click the button to hear a word. Then please draw a representation of that word.
+						When you are finished, click "Finished".
+
+						To start, please click continue to agree and proceed with the test.
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Continue</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- Start app -->
+		<canvas id="my-canvas" width="window.innerWidth" height="window.innerHeight"></canvas>
+	{{!-- <div id="my-toolbox">
+		<button id="smoothline-btn">Smooth Line</button>
+		<button id="line-btn">Line</button>
+		<button id="circle-btn">Circle</button>
+		<button id="square-btn">Square</button>
+	</div> --}}
+	<button id="start-stop-btn" class="btn btn-primary center-block">Start</button>
+	<div id="test-area">
+		<form action="" method="POST" role="form" id="my-form">
+			<legend>Questions</legend>
+			<div class="form-group">
+				<label>Have you ever taken this test before?</label>
+				<label class="radio"><input type="radio" name="taken-before" value="true"/>Yes</label>
+				<label class="radio"><input type="radio" name="taken-before" value="false"/>No</label>
+			</div>
+			<div class="form-group">
+				<label>What is your Gender?</label>
+				<label class="radio">
+					<input type="radio" name="sex" value="male"/>Male
+				</label>
+				<label class="radio">			
+					<input type="radio" name="sex" value="female"/>Female
+				</label>
+				<label class="radio">			
+					<input type="radio" name="sex" value="other"/>Other<br/>
+				</label>
+			</div>
+			<div class="form-group age-input">
+				<input type="number" class="form-control" min="0" id="" placeholder="Age...">
+			</div>
+			<div class="form-group comments-input">
+				<textarea class="form-control" rows="3" placeholder="Questions or comments?"></textarea>
+			</div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</div>
+		</form>
+	</div>
+</div>

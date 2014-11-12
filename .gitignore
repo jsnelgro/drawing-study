@@ -1,0 +1,4 @@
+/node_modules/*
+/slag/*
+/public/vendor/*
+/public/.sass-cache/*
