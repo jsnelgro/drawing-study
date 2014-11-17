@@ -1,0 +1,9 @@
+<h1>Results</h1>
+<ul>
+{{#each res}}
+<li>
+	<div>participant {{this.id}}: {{this.word}}, {{this.duration}}, {{this.taken}}, {{this.sex}}, {{this.age}}, {{this.comments}}</div>
+	<div><img width="200" height="200" src="imgs/participant_images/{{this.image}}" alt="{{this.image}}">
+</li>
+{{/each}}
+</ul>
