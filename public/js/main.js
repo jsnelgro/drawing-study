@@ -48,27 +48,10 @@ var Canvas = (function() {
 	return Canvas;
 
 })();
-var CircleTool = (function () {
-
-	var _self = null;
-
-	// Constructor
-	function CircleTool() {
-		console.log('circletool created');
-
-	}
-	// CircleTool.prototype = new Tool();
-
-	CircleTool.prototype.someMethod = function () {
-	// take it away Mr. Public Method
-	};
-
-return CircleTool;
-
-})();
 var ClickListeners = (function() {
 
 	var _this;
+	var _timer = 0;
 
 	function ClickListeners() {
 		_this = this;
@@ -79,31 +62,49 @@ var ClickListeners = (function() {
 			var data = JSON.parse(JSON.stringify($(this).serializeObject()));
 			var img = document.getElementById('my-canvas').toDataURL();
 			data.img = img;
+			data.word = document.getElementById('meta-word').content;
+			data.duration = _timer;
 
 			$.ajax({
-					url: '/data',
-					type: 'POST',
-					dataType: 'json',
-					data: data
-				})
-				.done(function() {
-					console.log("ajax POST success");
-				})
-				.fail(function() {
-					console.log("ajax POST error");
-				})
-				.always(function() {
-					console.log("ajax POST complete");
-				});
-
+				url: '/data',
+				type: 'POST',
+				dataType: 'json',
+				data: data
+			});
+			$('#modal-continue-btn').unbind('click');
+			document.getElementById('modal-body-id').innerHTML = 'Thank you for your participation! If you would like to learn more, you can email john_snelgrove@brown.edu. You may now close the page to finish the study.';
+			$('#submit-btn').attr('disabled', 'disabled');
 			event.preventDefault();
 		});
 
-		// this.add_listener('submit-btn', function() {
-		// 	//todo get data and format to json
-		// 	var data = {'hi':'hello'};
-		// 	_this.post_req(document.URL+'data', data);
-		// });
+		var p = document.getElementById('audio-player');
+		$('.audio-play-btn').click(function(event) {
+			if (p.paused) {
+				p.play();
+			}
+		});
+
+		$('.start-stop-timer').click(function(event) {
+			if (_timer === 0) {
+				_timer = $.now();
+			} else {
+				_timer = $.now() - _timer;
+				// console.log(_timer);
+			}
+
+		});
+
+		$('#clear-btn').click(function(event) {
+			var retVal = confirm("Are you sure you want to clear your drawing?");
+			if (retVal == true) {
+				var canvas = document.getElementById('my-canvas');
+				var context = canvas.getContext('2d');
+				context.clearRect(0, 0, canvas.width, canvas.height);
+				return true;
+			} else {
+				return false;
+			}
+		});
 
 	}
 
@@ -150,117 +151,6 @@ var ClickListeners = (function() {
 	};
 
 	return ClickListeners;
-
-})();
-var LineTool = (function () {
-
-	var _someVar = null,
-		_anotherVar = null;
-
-	// Constructor
-	function LineTool(x, y) {
-		_someVar = x;
-		_anotherVar = y;
-	}
-
-	LineTool.prototype.someMethod = function () {
-	// take it away Mr. Public Method
-	};
-
-return LineTool;
-
-})();
-var SmoothLineTool = (function () {
-
-	var _someVar = null,
-		_anotherVar = null;
-
-	// Constructor
-	function SmoothLineTool() {
-	}
-
-	SmoothLineTool.prototype.someMethod = function () {
-	// take it away Mr. Public Method
-	};
-
-	SmoothLineTool.prototype.setTool = function(tool) {
-		_this = tool;
-	}
-
-	SmoothLineTool.prototype.handleMouseDown = function(event) {
-		color = colors[(index++) % colors.length];
-		stroke = Math.random() * 30 + 10 | 0;
-		
-		oldPt = new createjs.Point(stage.mouseX, stage.mouseY);
-		oldMidPt = oldPt;
-		stage.addEventListener("stagemousemove", _this.handleMouseMove);
-	}
-
-	SmoothLineTool.prototype.handleMouseMove = function(event) {
-		var midPt = new createjs.Point(oldPt.x + stage.mouseX >> 1, oldPt.y + stage.mouseY >> 1);
-
-		drawingCanvas.graphics.clear().setStrokeStyle(stroke, 'round', 'round').beginStroke(color).moveTo(midPt.x, midPt.y).curveTo(oldPt.x, oldPt.y, oldMidPt.x, oldMidPt.y);
-
-		oldPt.x = stage.mouseX;
-		oldPt.y = stage.mouseY;
-
-		oldMidPt.x = midPt.x;
-		oldMidPt.y = midPt.y;
-
-		stage.update();
-	}
-
-	SmoothLineTool.prototype.handleMouseUp = function(event) {
-		stage.removeEventListener("stagemousemove", _this.handleMouseMove);
-	}
-
-return SmoothLineTool;
-
-})();
-var SquareTool = (function () {
-
-	var _this = null,
-		_super = null;
-
-	// Constructor
-	function SquareTool(tool) {
-		_super = tool;
-		console.log('Squaretool created');
-		SquareTool.prototype = tool;
-		_super.stroke = 15;
-		_super.stage.addEventListener("stagemousedown", this.handleMouseDown);
-
-
-		_this = this;
-	}
-
-	SquareTool.prototype.handleMouseDown = function(event) {
-		console.log('square DOWN');		
-		_super.oldPt = new createjs.Point(_super.stage.mouseX, _super.stage.mouseY);
-		_super.oldMidPt = _super.oldPt;
-		_super.stage.addEventListener("stagemousemove", _super.handleMouseMove);
-	}
-
-
-	// SquareTool.prototype.handleMouseMove = function(event) {
-	// 	var midPt = new createjs.Point(_super.oldPt.x + _super.stage.mouseX >> 1, _super.oldPt.y + _super.stage.mouseY >> 1);
-
-	// 	_super.drawingCanvas.graphics.clear().setStrokeStyle(stroke, 'round', 'round').beginStroke(color).moveTo(midPt.x, midPt.y).curveTo(_super.oldPt.x, _super.oldPt.y, _super.oldMidPt.x, _super.oldMidPt.y);
-
-	// 	_super.oldPt.x = _super.stage.mouseX;
-	// 	_super.oldPt.y = _super.stage.mouseY;
-
-	// 	_super.oldMidPt.x = midPt.x;
-	// 	_super.oldMidPt.y = midPt.y;
-
-	// 	stage.update();
-	// }
-
-	// SquareTool.prototype.handleMouseUp = function(event) {
-	// 	_super.stage.removeEventListener("stagemousemove", _super.handleMouseMove);
-	// }
-
-return SquareTool;
 
 })();
 var Tool = (function() {
@@ -326,62 +216,18 @@ var Tool = (function() {
 	return Tool;
 
 })();
-var Toolbox = (function () {
-
-	var _toolbox = null,
-		_this,
-		_tool = null,
-		_currentTool = null,
-		_canvas = null,
-		_box = {
-			'circle': null,
-			'box': null,
-			'smoothline': null,
-			'line': null
-		};
-
-	// Constructor
-	function Toolbox(toolbox_id, canvas) {
-		_toolbox = document.getElementById(toolbox_id);
-		_this = this;
-		_canvas = canvas;
-		_tool = canvas.getTool();
-		_box['circle'] = CircleTool;
-		_box['line'] = LineTool;
-		_box['smoothline'] = SmoothLineTool;
-		_box['square'] = SquareTool;
-
-
-		var buttons = _toolbox.getElementsByTagName('button');
-		for (var i = buttons.length - 1; i >= 0; i--) {
-			var tool_name = buttons[i].id.replace('-btn','');
-			// ugggghhhhh javascript..... need to wrap clicklistener in closure to stop it from overwriting the last listener
-			(function(_tool_name){
-				buttons[i].addEventListener('click', function() {
-					console.log(_tool_name);
-					_this.setCurrentTool(_tool_name);
-				});
-			})(tool_name);
-		};
-
-	}
-
-	Toolbox.prototype.getCurrentTool = function() {
-		return _currentTool;
-	};
-
-	Toolbox.prototype.setCurrentTool = function(tool) {
-		_canvas.setTool(new _box[tool](_tool));
-	};
-
-return Toolbox;
-
-})();
 $(document).ready(function() {
 	(function() {
 		var canvas = new Canvas('my-canvas');
 		// var toolbox = new Toolbox('my-toolbox', canvas);
 		var click_ears = new ClickListeners();
+		
+		$('#myModal').modal({
+			'backdrop': 'static',
+			'keyboard': false,
+			'show': true
+		});
+
 		function orientationChange() {
 			// redraw hack for iphone orientation change bug
 			switch (window.orientation) {
@@ -401,5 +247,52 @@ $(document).ready(function() {
 			}
 		}
 		window.addEventListener('orientationchange', orientationChange);
+
+		// Smooth scroll for in page links
+		var target, scroll;
+
+		$("#test-area").on("shown.bs.collapse", function(e) {
+			// if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+				// target = $('#test-area');
+				// target = target.length ? target : $("[id=" + this.hash.slice(1) + "]");
+
+				// if (target.length) {
+				// 	if (typeof document.body.style.transitionProperty === 'string') {
+				// 		e.preventDefault();
+
+				// 		var avail = $(document).height() - $(window).height();
+
+				// 		scroll = target.offset().top;
+
+				// 		if (scroll > avail) {
+				// 			scroll = avail;
+				// 		}
+
+				// 		$("html").css({
+				// 			"margin-top": ($(window).scrollTop() - scroll) + "px",
+				// 			"transition": "1s ease-in-out"
+				// 		}).data("transitioning", true);
+				// 	} else {
+				// 		$("html, body").animate({
+				// 			scrollTop: scroll
+				// 		}, 1000);
+				// 		return;
+				// 	}
+				// }
+				
+				$('#drawing-div').slideUp('slow/400/fast', function() {
+					$('.finished-btn').attr('disabled', 'disabled');					
+				});
+			// }
+		});
+
+		// $("html").on("transitionend webkitTransitionEnd msTransitionEnd oTransitionEnd", function(e) {
+		// 	if (e.target == e.currentTarget && $(this).data("transitioning") === true) {
+		// 		$(this).removeAttr("style").data("transitioning", false);
+		// 		$("html, body").scrollTop(scroll);
+		// 		return;
+		// 	}
+		// });
+
 	})();
 });

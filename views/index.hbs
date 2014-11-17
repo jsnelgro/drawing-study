@@ -18,18 +18,28 @@
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-						<h4 class="modal-title" id="myModalLabel">Instructions</h4>
+						{{!-- <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button> --}}
+						<h4 class="modal-title" id="myModalLabel">Instructions &amp; Consent</h4>
 					</div>
-					<div class="modal-body">
-						In this experiment, blah blah blah...
-						Click the button to hear a word. Then please draw a representation of that word.
-						When you are finished, click "Finished".
-
-						To start, please click continue to agree and proceed with the test.
+					<div id="modal-body-id" class="modal-body">
+						<p>In this experiment, you will be asked to listen to a short audio clip of 
+						a pseudoword (a sound that sounds like a word but has no semantic meaning) then draw a quick sketch of 
+						your interpretation of the word using the online canvas.</p>
+						<p>This is not a test of your artistic ability, so don't worry about your sketch being perfect. The drawing should only take you 10 - 15 seconds.</p> 
+						<p>When you are ready, click "continue" to hear the word and begin the experiment. If at any time you
+						would like to hear the word again, click the speaker icon button beneath the canvas.</p>
+						<p>Please read the consent and agreement terms before starting by clicking the button below:</p>
+						<button type="button" class="btn btn-success center-block" data-toggle="collapse" data-target="#consent" aria-expanded="false" aria-controls="consent">Consent Terms</button>
+						<div id="consent" class="modal-body collapse">
+							<p class="indent">The Department of Cognitive, Linguistic, and Psychological Science at Brown University supports the practice of protection of human participants in research.  The following will provide you with information about the experiment that will help you in deciding whether or not you wish to participate.  If you agree to participate, please be aware that you are free to withdraw at any point throughout the duration of the experiment by simply closing the webpage.</p>
+							<p class="indent">All information you provide will remain confidential and will not be associated with your name. Your participation in this study will require approximately 5 minutes or less.  When this study is complete you will be provided with the results of the experiment if you request them, and you will be free to ask any questions.  If you have any further questions concerning this study please feel free to email john_snelgrove@brown.edu.</p>
+						</div>
+						<p>By clicking "continue", you agree to participate in this study.</p>
+						<p>When you are finished, click the checkmark icon. To restart you drawing, click "clear". Thank you, and have fun!</p>
+						<p><strong>IMPORTANT:</strong> before continuing, please put on headphones, or make sure the volume on your computer or phone is turned up.</p>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Continue</button>
+						<button id="modal-continue-btn" type="button" class="btn btn-success start-stop-timer audio-play-btn" data-dismiss="modal">Continue</button>
 					</div>
 				</div>
 			</div>
@@ -37,15 +47,23 @@
 
 
 		<!-- Start app -->
-		<canvas id="my-canvas" width="window.innerWidth" height="window.innerHeight"></canvas>
-	{{!-- <div id="my-toolbox">
-		<button id="smoothline-btn">Smooth Line</button>
-		<button id="line-btn">Line</button>
-		<button id="circle-btn">Circle</button>
-		<button id="square-btn">Square</button>
-	</div> --}}
-	<button id="start-stop-btn" class="btn btn-primary center-block">Start</button>
-	<div id="test-area">
+		<div id="drawing-div">
+			<canvas id="my-canvas" width="window.innerWidth" height="window.innerHeight"></canvas>
+		{{!-- <div id="my-toolbox">
+			<button id="smoothline-btn">Smooth Line</button>
+			<button id="line-btn">Line</button>
+			<button id="circle-btn">Circle</button>
+			<button id="square-btn">Square</button>
+		</div> --}}
+		<div class="controls-div center-block text-center">
+			<button id="start-stop-btn" class="btn btn-default audio-play-btn"><span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span></button>
+			<button type="button" class="btn btn-default start-stop-timer finished-btn" data-toggle="collapse" data-target="#test-area" aria-expanded="false" aria-controls="test-area"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+			<button id="clear-btn" type="button" class="btn btn-default">Clear</button>
+		</div>
+		<audio preload='none' id='audio-player'><source src="{{audio}}" type="audio/mpeg"></audio>
+	</div>
+	{{!-- questionnaire --}}
+	<div id="test-area" class="collapse">
 		<form action="/data" method="POST" role="form" id="my-form">
 			<legend>Questions</legend>
 			<div class="form-group">
@@ -72,7 +90,7 @@
 				<textarea class="form-control" rows="3" name="comments" placeholder="Questions or comments?"></textarea>
 			</div>
 			<div class="form-group">
-				<button type="submit" id="submit-btn" class="btn btn-primary">Submit</button>
+				<button type="submit" data-toggle="modal" data-target="#myModal" id="submit-btn" class="btn btn-primary">Submit</button>
 			</div>
 		</form>
 	</div>

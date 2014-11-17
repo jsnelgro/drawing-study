@@ -1,3 +1,7 @@
+.indent {
+	text-indent: 50px;
+}
+
 .container {
 	margin: 0;
 	padding: 0;
@@ -9,14 +13,19 @@
 	overflow: hidden;
 }
 
-#start-stop-btn {
+.controls-div {
+	margin-bottom: 50px;
+}
+
+/*#start-stop-btn {
 	text-align: center;
 	margin-bottom: 10%;
-}
+}*/
 
 #my-form {
 	/*text-align: center;*/
 	padding-left: 50px;
+	margin-top: 20px;
 }
 
 .navbar {

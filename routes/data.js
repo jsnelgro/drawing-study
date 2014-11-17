@@ -7,13 +7,11 @@ router.post('/', function(req, res) {
 	_i += 1;
 	var imgName = 'drawing_'+_i+'.png'
 	var datum = req.body;
-	console.log(datum);
+	// console.log(datum);
 	var imgBuffer = decodeBase64Image(datum.img);
-	fs.writeFile('participant_images/'+imgName, imgBuffer.data, function(err) {
-		
-		datum.word = 'some word';
-		conn.query('INSERT INTO participants (word, image, taken, sex, age, comments) VALUES ($1,$2,$3,$4,$5,$6)',
-			[datum.word, imgName, datum['taken-before'], datum.sex, datum.age, datum.comments])
+	fs.writeFile('participant_images/'+imgName, imgBuffer.data, function(err) {		
+		conn.query('INSERT INTO participants (word, image, duration, taken, sex, age, comments) VALUES ($1,$2,$3,$4,$5,$6,$7)',
+			[datum.word, imgName, datum['taken-before'], datum.duration, datum.sex, datum.age, datum.comments])
 		.on('error', console.error);
 	});
 });
