@@ -1,5 +1,3 @@
 /node_modules/*
 /slag/*
-/public/vendor/*
-/public/.sass-cache/*
 /public/imgs/participant_images/*.png

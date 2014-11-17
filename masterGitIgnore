@@ -1,0 +1,6 @@
+/node_modules/*
+/slag/*
+/public/imgs/participant_images/*.png
+/public/vendor/*
+/public/.sass-cache/*
+passwords.js
