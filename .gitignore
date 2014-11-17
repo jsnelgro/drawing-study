@@ -2,3 +2,5 @@
 /slag/*
 /public/vendor/*
 /public/.sass-cache/*
+/participant_images/*.png
+/word_clips/

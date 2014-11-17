@@ -1,17 +1,4 @@
 <div class="container">
-{{!-- 	<ul class="header">
-		<li id="icon-and-plug">
-			<ul class="plug pull-left">
-				<li><a><img src="./imgs/brown.png" alt=""/></a></li>
-				<li><h3>Brown University</h3></li>
-			</ul>
-		</li>
-		<li id="info-btn">
-			<!-- Button trigger modal -->
-			<button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal">Instructions</button>
-		<li>
-		</ul> --}}
-
 		<nav class="navbar navbar-default" role="navigation">
 			<div class="container-fluid">
 				<div class="navbar-header johnny-nav">
@@ -59,33 +46,33 @@
 	</div> --}}
 	<button id="start-stop-btn" class="btn btn-primary center-block">Start</button>
 	<div id="test-area">
-		<form action="" method="POST" role="form" id="my-form">
+		<form action="/data" method="POST" role="form" id="my-form">
 			<legend>Questions</legend>
 			<div class="form-group">
 				<label>Have you ever taken this test before?</label>
-				<label class="radio"><input type="radio" name="taken-before" value="true"/>Yes</label>
+				<label required class="radio"><input type="radio" name="taken-before" value="true"/>Yes</label>
 				<label class="radio"><input type="radio" name="taken-before" value="false"/>No</label>
 			</div>
 			<div class="form-group">
 				<label>What is your Gender?</label>
 				<label class="radio">
-					<input type="radio" name="sex" value="male"/>Male
+					<input required type="radio" name="sex" value="male"/>Male
 				</label>
 				<label class="radio">			
-					<input type="radio" name="sex" value="female"/>Female
+					<input required type="radio" name="sex" value="female"/>Female
 				</label>
 				<label class="radio">			
-					<input type="radio" name="sex" value="other"/>Other<br/>
+					<input required type="radio" name="sex" value="other"/>Other
 				</label>
 			</div>
 			<div class="form-group age-input">
-				<input type="number" class="form-control" min="0" id="" placeholder="Age...">
+				<input required type="number" class="form-control" name="age" min="0" placeholder="Age...">
 			</div>
 			<div class="form-group comments-input">
-				<textarea class="form-control" rows="3" placeholder="Questions or comments?"></textarea>
+				<textarea class="form-control" rows="3" name="comments" placeholder="Questions or comments?"></textarea>
 			</div>
 			<div class="form-group">
-				<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="submit" id="submit-btn" class="btn btn-primary">Submit</button>
 			</div>
 		</form>
 	</div>

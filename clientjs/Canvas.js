@@ -19,6 +19,7 @@ var Canvas = (function() {
 		drawingCanvas = new createjs.Shape();
 		stage.addChild(drawingCanvas);
 		this.tool = new Tool(drawingCanvas, stage);
+		_tool = this.tool;
 		window.addEventListener('resize', this.resizeCanvas, false);
 		this.resizeCanvas();
 		stage.update();

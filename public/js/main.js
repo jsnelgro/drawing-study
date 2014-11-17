@@ -19,6 +19,7 @@ var Canvas = (function() {
 		drawingCanvas = new createjs.Shape();
 		stage.addChild(drawingCanvas);
 		this.tool = new Tool(drawingCanvas, stage);
+		_tool = this.tool;
 		window.addEventListener('resize', this.resizeCanvas, false);
 		this.resizeCanvas();
 		stage.update();
@@ -31,6 +32,7 @@ var Canvas = (function() {
 		canvas.height = window.innerHeight/1.35;
 		stage.width = window.innerWidth;
 		stage.height = window.innerHeight/1.35;
+		_tool.stroke = ((window.innerWidth + window.innerHeight) / 2)/100;
 		stage.update();
 	};
 
@@ -62,6 +64,92 @@ var CircleTool = (function () {
 	};
 
 return CircleTool;
+
+})();
+var ClickListeners = (function() {
+
+	var _this;
+
+	function ClickListeners() {
+		_this = this;
+
+		$('#my-form').submit(function(event) {
+			console.log('submitted');
+			// uggghhhh god I hate html forms. I shouldn't have even bothered with them.
+			var data = JSON.parse(JSON.stringify($(this).serializeObject()));
+			var img = document.getElementById('my-canvas').toDataURL();
+			data.img = img;
+
+			$.ajax({
+					url: '/data',
+					type: 'POST',
+					dataType: 'json',
+					data: data
+				})
+				.done(function() {
+					console.log("ajax POST success");
+				})
+				.fail(function() {
+					console.log("ajax POST error");
+				})
+				.always(function() {
+					console.log("ajax POST complete");
+				});
+
+			event.preventDefault();
+		});
+
+		// this.add_listener('submit-btn', function() {
+		// 	//todo get data and format to json
+		// 	var data = {'hi':'hello'};
+		// 	_this.post_req(document.URL+'data', data);
+		// });
+
+	}
+
+	ClickListeners.prototype.add_listener = function(btn_id, behavior) {
+		if (btn_id[0] !== '#') {
+			btn_id.prepend('#');
+		}
+		$(btn_id).click(behavior);
+	};
+
+	ClickListeners.prototype.post_req = function(url, data) {
+		$.ajax({
+				url: url,
+				type: 'POST',
+				dataType: 'json',
+				data: data,
+			})
+			.done(function() {
+				console.log("ajax POST success");
+			})
+			.fail(function() {
+				console.log("ajax POST error");
+			})
+			.always(function() {
+				console.log("ajax POST complete");
+			});
+
+	};
+
+	$.fn.serializeObject = function() {
+		var o = {};
+		var a = this.serializeArray();
+		$.each(a, function() {
+			if (o[this.name] !== undefined) {
+				if (!o[this.name].push) {
+					o[this.name] = [o[this.name]];
+				}
+				o[this.name].push(this.value || '');
+			} else {
+				o[this.name] = this.value || '';
+			}
+		});
+		return o;
+	};
+
+	return ClickListeners;
 
 })();
 var LineTool = (function () {
@@ -289,28 +377,29 @@ var Toolbox = (function () {
 return Toolbox;
 
 })();
-(function() {
-	var canvas = new Canvas('my-canvas');
-	// var toolbox = new Toolbox('my-toolbox', canvas);
-
-	function orientationChange() {
-		// redraw hack for iphone orientation change bug
-		switch (window.orientation) {
-			case -90:
-			case 90:
-			default:
-				var element = document.getElementById('body');
-				var n = document.createTextNode(' ');
-				var disp = element.style.display;
-				element.appendChild(n);
-				element.style.display = 'none';
-				setTimeout(function() {
-					element.style.display = disp;
-					n.parentNode.removeChild(n);
-				}, 20);
-				break;
+$(document).ready(function() {
+	(function() {
+		var canvas = new Canvas('my-canvas');
+		// var toolbox = new Toolbox('my-toolbox', canvas);
+		var click_ears = new ClickListeners();
+		function orientationChange() {
+			// redraw hack for iphone orientation change bug
+			switch (window.orientation) {
+				case -90:
+				case 90:
+				default:
+					var element = document.getElementById('body');
+					var n = document.createTextNode(' ');
+					var disp = element.style.display;
+					element.appendChild(n);
+					element.style.display = 'none';
+					setTimeout(function() {
+						element.style.display = disp;
+						n.parentNode.removeChild(n);
+					}, 20);
+					break;
+			}
 		}
-	}
-	window.addEventListener('orientationchange', orientationChange);
-
-})();
+		window.addEventListener('orientationchange', orientationChange);
+	})();
+});
