@@ -36,7 +36,7 @@ module.exports = function(grunt) {
         options: {
           // See wiredep's configuration documentation for the options
           // you may pass:
-          "directory":"./public/vendor/",
+          "directory":"public/vendor/",
           "ignorePath":'public/'
           // https://github.com/taptapship/wiredep#configuration
         }
