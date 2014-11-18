@@ -4,3 +4,5 @@
 /public/vendor/*
 /public/.sass-cache/*
 passwords.js
+participants.db
+drawing_study.pem
