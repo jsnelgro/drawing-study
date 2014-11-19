@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 var anyDB = require('any-db');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
 var data = require('./routes/data');
 var display = require('./routes/display');
 
@@ -15,10 +14,10 @@ var app = express();
 
 var conn = anyDB.createConnection('sqlite3://participants.db');
 // conn.query("DROP TABLE participants;"); //Delete this line when finished with project
-// conn.query("CREATE TABLE participants (id INTEGER PRIMARY KEY AUTOINCREMENT, word TEXT, image TEXT, duration INTEGER, taken BOOLEAN, sex TEXT, age INTEGER, comments TEXT);")
-//     .on('end', function() {
-//         console.log("made participants table");
-//     });
+conn.query("CREATE TABLE participants (id INTEGER PRIMARY KEY AUTOINCREMENT, word TEXT, image TEXT, duration INTEGER, taken BOOLEAN, sex TEXT, age INTEGER, comments TEXT);")
+    .on('end', function() {
+        console.log("made participants table");
+    });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -30,11 +29,9 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(require('node-compass')({mode: 'expanded'}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
 app.use('/data', data);
 app.use('/display',display);
 
@@ -68,16 +65,5 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-
-// var debug = require('debug')('cog_study');
-// var app = require('../app');
-
-app.set('port', process.env.PORT || 3000);
-
-app.listen(app.get('port'), function() {
-    console.log("Node app is running at localhost:" + app.get('port'));
-    // debug('Express server listening on port ' + server.address().port);
-});
-
 
 module.exports = app;

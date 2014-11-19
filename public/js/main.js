@@ -66,11 +66,20 @@ var ClickListeners = (function() {
 			data.duration = _timer;
 
 			$.ajax({
-				url: '/data',
-				type: 'POST',
-				dataType: 'json',
-				data: data
-			});
+					url: '/data',
+					type: 'POST',
+					dataType: 'json',
+					data: data
+				})
+				.done(function() {
+					console.log("success");
+				})
+				.fail(function() {
+					console.log("error");
+				})
+				.always(function() {
+					console.log("complete");
+				});
 			$('#modal-continue-btn').unbind('click');
 			document.getElementById('modal-body-id').innerHTML = 'Thank you for your participation! If you would like to learn more, you can email john_snelgrove@brown.edu. You may now close the page to finish the study.';
 			$('#submit-btn').attr('disabled', 'disabled');
