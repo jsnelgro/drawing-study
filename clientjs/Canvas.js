@@ -4,6 +4,7 @@ var Canvas = (function() {
 	var drawingCanvas;
 	var _tool;
 	var _this;
+	var _resize = true;
 
 	// Constructor
 	function Canvas(canvas_id) {
@@ -22,18 +23,23 @@ var Canvas = (function() {
 		_tool = this.tool;
 		window.addEventListener('resize', this.resizeCanvas, false);
 		this.resizeCanvas();
+		_resize = false;
 		stage.update();
 
 		_this = this;
 	}
 
 	Canvas.prototype.resizeCanvas = function() {
-		canvas.width = window.innerWidth;
-		canvas.height = window.innerHeight/1.35;
-		stage.width = window.innerWidth;
-		stage.height = window.innerHeight/1.35;
-		_tool.stroke = ((window.innerWidth + window.innerHeight) / 2)/100;
-		stage.update();
+		if (_resize) {
+			var height = window.innerHeight/1.35;
+			var width = height%window.innerWidth;
+			canvas.width = width;
+			canvas.height = height;
+			stage.width = width;
+			stage.height = height;
+			_tool.stroke = height / 100;
+			stage.update();
+		}
 	};
 
 	Canvas.prototype.getTool = function() {

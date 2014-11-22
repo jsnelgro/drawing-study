@@ -1,9 +1,48 @@
+<style type="text/css" media="screen">
+	h1 {
+		text-align: center;
+		margin-top: 20px;
+	}
+	.images figure {
+		display: inline-block;
+	}
+
+	figcaption {
+		text-align: center;
+	}
+
+</style>
 <h1>Results</h1>
-<ul>
+<ul class="list-group">
 {{#each res}}
-<li>
-	<div>participant {{this.id}}: {{this.word}}, {{this.duration}}, {{this.taken}}, {{this.sex}}, {{this.age}}, {{this.comments}}</div>
-	<div><img width="200" height="200" src="imgs/participant_images/{{this.image}}" alt="{{this.image}}">
+<li class="list-group-item">
+	<div>participant {{this.id}}: taken before: {{this.taken}}, device type: {{this.device_type}}, gender: {{this.sex}}, age: {{this.age}}, comments: {{this.comments}}</div>
+	<div class="images">
+		<figure>
+			<img class="img-thumbnail img-responsive" width="200" height="200" src="imgs/participant_images/{{this.bibi_img}}.png" alt="bibi"/>
+			<figcaption>bibi</figcaption>
+		</figure>
+		<figure>
+			<img class="img-thumbnail img-responsive" width="200" height="200" src="imgs/participant_images/{{this.boba_img}}.png" alt="boba"/>
+			<figcaption>boba</figcaption>	
+		</figure>
+		<figure>
+			<img class="img-thumbnail img-responsive" width="200" height="200" src="imgs/participant_images/{{this.kiki_img}}.png" alt="kiki"/>
+			<figcaption>kiki</figcaption>			
+		</figure>
+		<figure>
+			<img class="img-thumbnail img-responsive" width="200" height="200" src="imgs/participant_images/{{this.koka_img}}.png" alt="koka"/>
+			<figcaption>koka</figcaption>			
+		</figure>
+		<figure>
+			<img class="img-thumbnail img-responsive" width="200" height="200" src="imgs/participant_images/{{this.zizi_img}}.png" alt="zizi"/>
+			<figcaption>zizi</figcaption>
+		</figure>
+		<figure>
+			<img class="img-thumbnail img-responsive" width="200" height="200" src="imgs/participant_images/{{this.zoza_img}}.png" alt="zoza"/>
+			<figcaption>zoza</figcaption>
+		</figure>
+	</div>
 </li>
 {{/each}}
 </ul>

@@ -13,6 +13,10 @@
 	overflow: hidden;
 }
 
+#my-canvas:hover {
+	cursor: crosshair;
+}
+
 .controls-div {
 	margin-bottom: 50px;
 }

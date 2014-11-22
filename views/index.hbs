@@ -22,11 +22,11 @@
 						<h4 class="modal-title" id="myModalLabel">Instructions &amp; Consent</h4>
 					</div>
 					<div id="modal-body-id" class="modal-body">
-						<p>In this experiment, you will be asked to listen to a short audio clip of 
-						a pseudoword (a sound that sounds like a word but has no semantic meaning) then draw a quick sketch of 
-						your interpretation of the word using the online canvas.</p>
+						<p>In this experiment, you will be asked to listen to six short audio clips of 
+						pseudowords (sounds that sound like a word but have no semantic meaning) then draw a quick sketch of 
+						your interpretation of each of these sounds using the online canvas. To draw, simply click and drag with your mouse, or, if you're on a mobile device, draw with your finger.</p>
 						<p>This is not a test of your artistic ability, so don't worry about your sketch being perfect. The drawing should only take you 10 - 15 seconds.</p> 
-						<p>When you are ready, click "continue" to hear the word and begin the experiment. If at any time you
+						<p>When you are ready, click "continue" to hear the first word and begin the experiment. If at any time you
 						would like to hear the word again, click the speaker icon button beneath the canvas.</p>
 						<p>Please read the consent and agreement terms before starting by clicking the button below:</p>
 						<button type="button" class="btn btn-success center-block" data-toggle="collapse" data-target="#consent" aria-expanded="false" aria-controls="consent">Consent Terms</button>
@@ -35,7 +35,7 @@
 							<p class="indent">All information you provide will remain confidential and will not be associated with your name. Your participation in this study will require approximately 5 minutes or less.  When this study is complete you will be provided with the results of the experiment if you request them, and you will be free to ask any questions.  If you have any further questions concerning this study please feel free to email john_snelgrove@brown.edu.</p>
 						</div>
 						<p>By clicking "continue", you agree to participate in this study.</p>
-						<p>When you are finished, click the checkmark icon. To restart you drawing, click "clear". Thank you, and have fun!</p>
+						<p>When you are finished with each word, click the "next word" button. To restart you drawing, click "clear". Thank you, and have fun!</p>
 						<p><strong>IMPORTANT:</strong> before continuing, please put on headphones, or make sure the volume on your computer or phone is turned up.</p>
 					</div>
 					<div class="modal-footer">
@@ -48,28 +48,22 @@
 
 		<!-- Start app -->
 		<div id="drawing-div">
-			<canvas id="my-canvas" width="window.innerWidth" height="window.innerHeight"></canvas>
-		{{!-- <div id="my-toolbox">
-			<button id="smoothline-btn">Smooth Line</button>
-			<button id="line-btn">Line</button>
-			<button id="circle-btn">Circle</button>
-			<button id="square-btn">Square</button>
-		</div> --}}
+			<canvas id="my-canvas" class="center-block" width="window.innerWidth" height="window.innerHeight"></canvas>
 		<div class="controls-div center-block text-center">
-			<button id="start-stop-btn" class="btn btn-default audio-play-btn"><span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span></button>
-			<button type="button" class="btn btn-default start-stop-timer finished-btn" data-toggle="collapse" data-target="#test-area" aria-expanded="false" aria-controls="test-area"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+			<button id="start-stop-btn" class="btn btn-default audio-play-btn"><span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span> Repeat Word</button>
+			<button type="button" class="btn btn-default finished-btn next-word"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Next Word</button>
 			<button id="clear-btn" type="button" class="btn btn-default">Clear</button>
 		</div>
-		<audio preload='none' id='audio-player'><source src="{{audio}}" type="audio/mpeg"></audio>
+		<audio preload='none' id='audio-player'><source src="" type="audio/mpeg"></audio>
 	</div>
 	{{!-- questionnaire --}}
 	<div id="test-area" class="collapse">
-		<form action="/data" method="POST" role="form" id="my-form">
+		<form role="form" id="my-form">
 			<legend>Questions</legend>
 			<div class="form-group">
 				<label>Have you ever taken this test before?</label>
-				<label required class="radio"><input type="radio" name="taken-before" value="true"/>Yes</label>
-				<label class="radio"><input type="radio" name="taken-before" value="false"/>No</label>
+				<label required class="radio"><input type="radio" name="taken_before" value="true"/>Yes</label>
+				<label class="radio"><input type="radio" name="taken_before" value="false"/>No</label>
 			</div>
 			<div class="form-group">
 				<label>What is your Gender?</label>
