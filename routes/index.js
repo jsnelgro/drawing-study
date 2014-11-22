@@ -51,8 +51,6 @@ function counterbalance(_array, _i) {
 	var to_move = _array.slice(0, _i);
 	var to_not_move = _array.slice(_i, _array.length);
 	_array = to_not_move.concat(to_move);
-	console.log(to_not_move, to_move);
-	console.log(_array);
 	return _array;
 }
 

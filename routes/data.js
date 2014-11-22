@@ -19,13 +19,13 @@ var db_query =
 
 //main router response
 router.post('/', function(req, res) {
-	var ip_address = get_ip(req).clientIp;
-	var device = req.device.type;
+	var ip_address = get_ip(req).clientIp || 'unknown';
+	var device = req.device.type || 'unknown';
 
 	write_images(req.body, function(datum) {
 		// console.log(datum);
 		if (datum === 'err') {
-			res.send({'uhoh':'something weird happened'});
+			res.send('uh oh, something weird happened');
 		}
 
 		var db_insert = [
@@ -41,9 +41,10 @@ router.post('/', function(req, res) {
 		//add to db and respond with a thank you card.
 		conn.query(db_query, db_insert, function(db_err, db_res) {
 			if (db_err) {
-				res.send({'err':'error could not add data'});
+				res.send('error could not add data');
+			} else {
+				res.send('thank you!');
 			}
-			res.send({'cool':'thank you!'});
 		});
 	});
 });

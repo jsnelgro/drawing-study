@@ -77,24 +77,23 @@ var Listeners = (function() {
 				url: '/data',
 				cache: false,
 				type: 'POST',
-				dataType: 'json',
 				headers: {
 					"cache-control": "no-cache"
 				},
 				data: data,
-				success: function() {
-					console.log("success");
+				success: function(res) {
+					console.log("success:", res);
 					//say thanks
 					$('#myModalLabel').text('Thank You');
 					$('#modal-body-id').text('Thank you for your participation! If you would like to learn more, you can email john_snelgrove@brown.edu. You may now close the page to finish the study.');
 					// $('#submit-btn').attr('disabled', 'disabled');
 					$('#modal-continue-btn').hide();
 				},
-				error: function() {
+				error: function(res) {
 					$('#myModalLabel').text('Uh oh');
 					$('#modal-body-id').text('Something went wrong submitting your data. Please try again using a different browser (there is a known problem with chrome for iOS), or contact john_snelgrove@brown.edu to report the issue.');
 					$('#modal-continue-btn').hide();
-					console.log("error");
+					console.log("error: ", res);
 				}
 			});
 		});
