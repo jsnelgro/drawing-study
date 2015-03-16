@@ -1,4 +1,4 @@
-drawing Study
+Drawing Study
 =============
 
 A website for a study I'm conducting for a cognitive science lab course. This version uses a within subject design because participants are hard to find.
