@@ -1,9 +1,7 @@
-drawing_study
+drawing Study
 =============
 
-–In Progress– a website for a study I'm conducting for a cognitive science lab course
-
-Features the skeleton of a modular html5 canvas drawing app I'm putting together with touch support. Cool!
+A website for a study I'm conducting for a cognitive science lab course. This version uses a within subject design because participants are hard to find.
 
 #### Helpful stuff
 
